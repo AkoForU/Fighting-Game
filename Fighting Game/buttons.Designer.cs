@@ -59,6 +59,8 @@
             ClientSize = new Size(396, 174);
             Controls.Add(GeHurt);
             Controls.Add(Attack);
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "buttons";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "buttons";

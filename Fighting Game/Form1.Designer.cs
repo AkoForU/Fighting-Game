@@ -35,7 +35,7 @@
             // 
             // timer1
             // 
-            timer1.Interval = 2000;
+            timer1.Interval = 10;
             timer1.Tick += JPunch_Tick;
             // 
             // Form1
@@ -43,9 +43,9 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
-            ClientSize = new Size(632, 358);
+            ClientSize = new Size(642, 360);
             Name = "Form1";
-            Text = "Form1";
+            Text = "PornHub";
             ResumeLayout(false);
         }
 

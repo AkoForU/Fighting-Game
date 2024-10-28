@@ -10,13 +10,20 @@ namespace Overlapps
         private int gif2FrameIndex = 0;
         private int gif1FrameCount;
         private int gif2FrameCount;
+        private int spx;
+        
+
+        private System.Windows.Forms.Timer sptimer=new System.Windows.Forms.Timer();
+        private System.Windows.Forms.Timer spmoving = new System.Windows.Forms.Timer();
         private System.Windows.Forms.Timer animationTimer;
         public Form1()
         {
             InitializeComponent();
-            gif1 = Image.FromFile(@"../../../Jotaro/JotaroIdle.gif");
-            gif2 = Image.FromFile(@"../../../Boss/BossIdle.gif");
-
+            gif1 = Image.FromFile(@"../../../Jotaro/JotaroPunching.gif");
+            gif2 = Image.FromFile(@"../../../Jotaro/StarPlatinum.gif");
+            spmoving.Tick += spmoving_Tick;
+            spmoving.Interval = 50;
+            spmoving.Start();
             // Set up the ImageAnimator
             gif1FrameCount = gif1.GetFrameCount(FrameDimension.Time);
             gif2FrameCount = gif2.GetFrameCount(FrameDimension.Time);
@@ -29,6 +36,7 @@ namespace Overlapps
             // Enable the animator for both GIFs
             ImageAnimator.Animate(gif1, new EventHandler(OnAnimationFrameChanged));
             ImageAnimator.Animate(gif2, new EventHandler(OnAnimationFrameChanged));
+            
 
             HealthBar healthBar = new HealthBar
             {
@@ -38,6 +46,24 @@ namespace Overlapps
             };
             Controls.Add(healthBar);
             healthBar.Health -= 10;
+            sptimer.Tick += sptimer_Tick;
+            sptimer.Interval = 1500;
+            sptimer.Start();
+            spx = 270;
+        }
+        int numar = 10;
+        public void spmoving_Tick(object sender, EventArgs e)
+        {
+            spx += numar;
+            numar -= 1;
+        }
+        public void sptimer_Tick(object sender, EventArgs e)
+        {
+            ImageAnimator.StopAnimate(gif2, new EventHandler(OnAnimationFrameChanged));
+            gif1 = Image.FromFile(@"../../../Jotaro/JotaroIdle.gif");
+            ImageAnimator.Animate(gif1, new EventHandler(OnAnimationFrameChanged));
+            sptimer.Stop();
+            spmoving.Stop();
         }
         protected override CreateParams CreateParams
         {
@@ -72,7 +98,7 @@ namespace Overlapps
             ImageAnimator.UpdateFrames(gif2);
 
             e.Graphics.DrawImage(gif1, new Rectangle(100, 100, 350, 350)); // Resized position of the first GIF
-            e.Graphics.DrawImage(gif2, new Rectangle(130, 130, 350, 350)); // Resized position of the second GIF
+            e.Graphics.DrawImage(gif2, new Rectangle(spx, 180, 170, 170)); // Resized position of the second GIF
         }
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
