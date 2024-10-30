@@ -10,10 +10,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Music\1.mp3" />
-  </ItemGroup>
-
-  <ItemGroup>
     <COMReference Include="WMPLib">
       <WrapperTool>tlbimp</WrapperTool>
       <VersionMinor>0</VersionMinor>
@@ -26,17 +22,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Music\1.mp3">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Update="HealthBar.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Update="HealthBarBoss.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="JotaroWins.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>

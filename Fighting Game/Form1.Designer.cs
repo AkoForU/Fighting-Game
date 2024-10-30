@@ -45,7 +45,7 @@
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(642, 360);
             Name = "Form1";
-            Text = "PornHub";
+            Text = "GOKU";
             ResumeLayout(false);
         }
 

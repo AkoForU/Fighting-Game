@@ -6,7 +6,8 @@ using System.Drawing.Imaging;
 using System.Media;
 using WMPLib;
 using static System.Runtime.InteropServices.JavaScript.JSType;
-
+using Winner;
+using Lost;
 namespace Fighting_Game
 {
     public partial class Form1 : Form
@@ -34,7 +35,7 @@ namespace Fighting_Game
         private int BXP = 350;
         int JYP = 90;
         int BYP = 90;
-        WindowsMediaPlayer player=new WindowsMediaPlayer();
+        public WindowsMediaPlayer player;
         private int tmpbx;
         private int tmpby;
         private int tmpjx;
@@ -55,6 +56,7 @@ namespace Fighting_Game
 
         System.Windows.Forms.Timer BossTimer = new System.Windows.Forms.Timer();
         System.Windows.Forms.Timer BossAttackTimer = new System.Windows.Forms.Timer();
+        buttons bt;
         public Form1()
         {
             InitializeComponent();
@@ -62,7 +64,7 @@ namespace Fighting_Game
             tmpby = BYP;
             tmpjx = JXP;
             tmpjy = JYP;
-
+            bt = new buttons(this);
             spmoving.Tick += spmoving_Tick;
             spmoving.Interval = 50;
             //spmoving.Start();
@@ -78,14 +80,14 @@ namespace Fighting_Game
             gif2FrameCount = Boss.GetFrameCount(FrameDimension.Time);
             gif3FrameCount=Starplatinum.GetFrameCount(FrameDimension.Time);
             DoubleBuffered = true;
-            if(!File.Exists("1.mp3"))File.Copy("../../../Music/1.mp3", "1.mp3");
+            if (!File.Exists("1.mp3")) { File.Copy("../../../Music/1.mp3", "1.mp3"); }
+            player=new WindowsMediaPlayer();
             player.URL="1.mp3";
-            player.settings.volume = 80;
+            player.settings.volume =30;
 
             animationTimer = new System.Windows.Forms.Timer { Interval = 100 }; // Adjust for desired frame rate
             animationTimer.Tick += AnimationTimer_Tick;
             animationTimer.Start();
-            buttons bt = new buttons(this);
             bt.Show();
             shakeTimer = new System.Windows.Forms.Timer
             {
@@ -315,12 +317,11 @@ namespace Fighting_Game
             //Winner
             if (healthBar.Health == 0)
             {
-                SoundPlayer simpleSound = new SoundPlayer(@"../../../Music/getSerios.wav");
-                simpleSound.Play();
-                ChangeImg(ref Boss, "Winning", "Boss");
-                player.controls.stop();
-                ImageAnimator.Animate(Boss, new EventHandler(OnAnimationFrameChanged));
-                return;
+                player.URL = "";
+                LostGame frame = new LostGame(this);
+                bt.Close();
+                frame.Show();
+                this.Visible = false;
             }
         }
         public void HealthRemoval(ref HealthBarBoss healthBar)
@@ -335,14 +336,10 @@ namespace Fighting_Game
             //Winner
             if(healthBar.Health == 0)
             {
-                spAtack.Stop();
-                ImageAnimator.StopAnimate(Jotaro,new EventHandler(OnAnimationFrameChanged));
-                SoundPlayer simpleSound = new SoundPlayer(@"../../../Music/yareyare.wav");
-                simpleSound.Play();
-                ChangeImg(ref Jotaro, "Winning", "Jotaro");
-                player.controls.stop();
-                ImageAnimator.Animate(Jotaro, new EventHandler(OnAnimationFrameChanged));
-                return;
+                player.URL = "";
+                JotaroWinning frame = new JotaroWinning(this);
+                bt.Close();
+                frame.Show();
             }
         }
         public void HealthRemoval_Tick(object sender,EventArgs e)
