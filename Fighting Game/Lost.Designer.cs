@@ -56,7 +56,7 @@
             text.TabIndex = 1;
             text.TabStop = false;
             // 
-            // Lost
+            // LostGame
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -64,7 +64,7 @@
             ClientSize = new Size(600, 524);
             Controls.Add(text);
             Controls.Add(Josuke);
-            Name = "Lost";
+            Name = "LostGame";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Lost";
             ((System.ComponentModel.ISupportInitialize)Josuke).EndInit();

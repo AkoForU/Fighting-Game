@@ -12,8 +12,8 @@ namespace Fighting_Game
 {
     public partial class buttons : Form
     {
-        Form1 scene;
-        public buttons(Form1 scene)
+        FightGame scene;
+        public buttons(FightGame scene)
         {
             InitializeComponent();
             this.scene = scene;

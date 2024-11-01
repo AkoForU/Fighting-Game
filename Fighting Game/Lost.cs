@@ -1,4 +1,5 @@
 using Fighting_Game;
+using System.CodeDom.Compiler;
 using System.Media;
 using System.Numerics;
 using WMPLib;
@@ -58,22 +59,32 @@ namespace Lost
         SoundPlayer switich=new SoundPlayer("../../../sounds/swtich.wav");
         WindowsMediaPlayer player; 
         int nr = 0;
-        PictureBox gameover1;
+        PictureBox game;
+        PictureBox over;
         private readonly Form _app;
-        public LostGame(Form1 app)
+        public LostGame(FightGame app)
         {
 
             InitializeComponent();
             _app = app;
             this.Opacity = 0;
-            gameover1=new PictureBox();
-            gameover1.Location = new Point(1, -1);
-            gameover1.Name = "gameover";
-            gameover1.Size = new Size(598, 528);
-            gameover1.SizeMode = PictureBoxSizeMode.Zoom;
-            gameover1.TabIndex = 2;
-            gameover1.TabStop = false;
-            gameover1.Image = Image.FromFile("../../../Photos/GameOver.png");
+            game=new PictureBox();
+            game.Location = new Point(-34, -1);
+            game.Name = "game";
+            game.Size = new Size(330, 524);
+            game.SizeMode = PictureBoxSizeMode.Normal;
+            game.TabIndex = 2;
+            game.TabStop = false;
+            game.Image = Image.FromFile("../../../Photos/GameOver.png");
+            over=new PictureBox();
+            over.Location = new Point(-34, -1);
+            over.Name = "game";
+            over.Size = new Size(633, 524);
+            over.SizeMode = PictureBoxSizeMode.Normal;
+            over.TabIndex = 2;
+            over.TabStop = false;
+            over.Image = Image.FromFile("../../../Photos/GameOver.png");
+
             Josuke.Enabled = false;
             this.FormBorderStyle=FormBorderStyle.None;
             lumina.Tick += Lumina_tick;
@@ -122,8 +133,9 @@ namespace Lost
                 this.Controls.Remove(text);
                 DedTime.Tick -= Dedtime_Tick;
                 DedTime.Tick += ending_tick;
-                Controls.Add(gameover1);
+                DedTime.Interval = 50;
                 DedTime.Start();
+                Controls.Add(game);
                 
             } 
         }
@@ -131,9 +143,19 @@ namespace Lost
         public void ending_tick(object sender, EventArgs e)
         {
             Controls.Remove(text);
+            tmp++;
+            if (tmp == 1)
+            {
+                Controls.Add(over);
+                DedTime.Interval = 1000;
+
+            }
             ended.PlaySync();
-            _app.Close();
-            this.Close();
+            if(tmp == 2)
+            {
+                _app.Close();
+                this.Close();
+            }
         }
         public void text4_tick(object sender, EventArgs e)
         {

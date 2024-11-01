@@ -10,7 +10,7 @@ using Winner;
 using Lost;
 namespace Fighting_Game
 {
-    public partial class Form1 : Form
+    public partial class FightGame : Form
     {
         private Image Jotaro;
         private Image Boss;
@@ -57,7 +57,7 @@ namespace Fighting_Game
         System.Windows.Forms.Timer BossTimer = new System.Windows.Forms.Timer();
         System.Windows.Forms.Timer BossAttackTimer = new System.Windows.Forms.Timer();
         buttons bt;
-        public Form1()
+        public FightGame()
         {
             InitializeComponent();
             tmpbx = BXP;
@@ -291,6 +291,8 @@ namespace Fighting_Game
                 BossTimer.Stop();
                 BossAttackTimer.Start();
                 ChangeImg(ref Boss, "Punching", "Boss");
+                SoundPlayer slash = new SoundPlayer("../../../sounds/slash.wav");
+                slash.Play();
                 ImageAnimator.Animate(Boss, new EventHandler(OnAnimationFrameChanged));
             }
         }
@@ -304,11 +306,11 @@ namespace Fighting_Game
             TriggerShakeEffect(Jotaro);
             HealthTimer.Start();
             dmgto = "Jotaro";
-            dmg = 10;
+            dmg = 2;
         }
         public void HealthRemoval(ref HealthBar healthBar)
         {
-            if(dmg!=1) dmg--;
+            if(dmg>=1) dmg-=2;
             else
             {
                 HealthTimer.Stop();
@@ -331,7 +333,7 @@ namespace Fighting_Game
             {
                 HealthTimer.Stop();
             }
-            healthBar.Health -= 5;
+            healthBar.Health--;
 
             //Winner
             if(healthBar.Health == 0)

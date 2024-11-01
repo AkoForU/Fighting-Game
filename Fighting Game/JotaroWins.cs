@@ -25,8 +25,8 @@ namespace Winner
         {
             Interval = 20
         };
-        private readonly Form1 form1;
-        public JotaroWinning(Form1 tmp)
+        private readonly FightGame form1;
+        public JotaroWinning(FightGame tmp)
         {
             this.StartPosition=FormStartPosition.CenterScreen;
             this.MinimizeBox = false;
