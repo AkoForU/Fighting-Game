@@ -76,5 +76,4 @@ This project is licensed under the MIT License.
 
 Acknowledgements
 
-    Special thanks to the contributors of the Hackathon_Project for their foundational work.
-    Inspired by classic 2D fighting games and developed during a hackathon event.
+    Inspired by classic 2D fighting games and developed for project during a hackathon event.
